@@ -1190,6 +1190,263 @@
       }
     }
 
+    /* ===== about (identity) ===== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+      gap: 5.5vw;
+      align-items: start
+    }
+
+    .about-status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(255, 77, 0, .08);
+      border: 1px solid rgba(255, 77, 0, .28);
+      font-family: var(--fm);
+      font-size: 10.5px;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--acc);
+      margin-bottom: 22px
+    }
+
+    .about-status-badge i {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--acc);
+      box-shadow: 0 0 8px var(--acc);
+      animation: livePulse 2s ease-in-out infinite
+    }
+
+    @keyframes livePulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: .4; transform: scale(.85); }
+    }
+
+    .about-creed {
+      margin-top: 24px;
+      padding: 14px 18px;
+      border-left: 2px solid var(--acc);
+      background: rgba(255, 77, 0, .04);
+      border-radius: 0 8px 8px 0;
+      font-family: var(--fm);
+      font-size: 13px;
+      letter-spacing: .06em;
+      color: #DAD3C5;
+      text-transform: lowercase
+    }
+
+    .about-facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px
+    }
+
+    .about-bento {
+      display: flex;
+      flex-direction: column;
+      gap: 20px
+    }
+
+    .bento-card {
+      background: var(--bg2);
+      border: 1px solid var(--line2);
+      border-radius: 20px;
+      padding: 26px 28px;
+      box-shadow: 0 40px 80px -40px rgba(0, 0, 0, .85), 0 1px 0 rgba(245, 241, 231, .05) inset;
+      transition: border-color .35s;
+      position: relative;
+      overflow: hidden
+    }
+
+    .bento-card:hover {
+      border-color: rgba(255, 77, 0, .32)
+    }
+
+    .bc-head {
+      font-family: var(--fm);
+      font-size: 10.5px;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      color: var(--mut);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 6px
+    }
+
+    .bc-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--acc);
+      box-shadow: 0 0 6px var(--acc)
+    }
+
+    .p-item {
+      display: flex;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .p-item:last-child {
+      border-bottom: none;
+      padding-bottom: 4px
+    }
+
+    .p-num {
+      font-family: var(--fm);
+      font-size: 11px;
+      color: var(--acc);
+      letter-spacing: .12em;
+      padding-top: 2px;
+      flex-shrink: 0
+    }
+
+    .p-title {
+      font-family: var(--fd);
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 5px
+    }
+
+    .p-desc {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: #B8B0A2;
+      margin-bottom: 10px
+    }
+
+    .p-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px
+    }
+
+    .p-tags span {
+      font-family: var(--fm);
+      font-size: 9.5px;
+      letter-spacing: .06em;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(245, 241, 231, .04);
+      border: 1px solid var(--line);
+      color: var(--mut)
+    }
+
+    .term-bar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--fm);
+      font-size: 11px;
+      color: var(--mut)
+    }
+
+    .term-dots {
+      display: flex;
+      gap: 6px
+    }
+
+    .term-dots i {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%
+    }
+
+    .term-dots i:nth-child(1) { background: #E05D44; opacity: .85 }
+    .term-dots i:nth-child(2) { background: #DDB035; opacity: .85 }
+    .term-dots i:nth-child(3) { background: #3FB950; opacity: .85 }
+
+    .term-user {
+      color: var(--acc);
+      margin-left: 4px
+    }
+
+    .term-act {
+      margin-left: auto;
+      font-size: 10px;
+      color: var(--mut);
+      letter-spacing: .1em
+    }
+
+    .term-code {
+      margin-top: 14px;
+      font-family: var(--fm);
+      font-size: 12px;
+      line-height: 1.65
+    }
+
+    .tc-line {
+      color: var(--mut);
+      margin-bottom: 8px
+    }
+
+    .tc-p { color: var(--acc) }
+    .tc-c { color: var(--ink) }
+
+    .tc-json {
+      margin: 0;
+      white-space: pre;
+      font-family: var(--fm);
+      font-size: 11.5px;
+      color: var(--ink);
+      overflow-x: auto
+    }
+
+    .jk { color: #D89858 }
+    .jv { color: #A8D196 }
+
+    .metrics-card {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr auto 1fr;
+      align-items: center;
+      gap: 16px;
+      padding: 22px 26px
+    }
+
+    .m-divider {
+      width: 1px;
+      height: 38px;
+      background: var(--line)
+    }
+
+    .m-val {
+      font-family: var(--fd);
+      font-size: 26px;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1;
+      text-transform: uppercase
+    }
+
+    .m-label {
+      font-family: var(--fm);
+      font-size: 10px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--acc);
+      margin-top: 5px
+    }
+
+    .m-sub {
+      font-size: 11px;
+      color: var(--mut);
+      margin-top: 3px
+    }
+
     /* ===== education ===== */
     .edu-grid {
       display: grid;
@@ -2803,6 +3060,7 @@
         display: none
       }
 
+      .about-grid,
       .edu-grid,
       .proj-grid,
       .sk-grid {
@@ -2874,6 +3132,16 @@
       #musicPanel {
         right: 16px;
         width: calc(100vw - 32px)
+      }
+
+      .metrics-card {
+        grid-template-columns: 1fr;
+        gap: 16px
+      }
+
+      .m-divider {
+        width: 100%;
+        height: 1px
       }
     }
 
@@ -3032,7 +3300,7 @@
       <p class="hero-blurb fi3" data-fi>an education, eight shipped builds, a wall of skills and a shelf of trophies,
         all of it lives on this one page. keep scrolling, the particles know the way.</p>
       <div class="hero-ctas fi3" data-fi>
-        <a class="btn solid mag" href="#s-edu" data-scroll>see the work
+        <a class="btn solid mag" href="#s-about" data-scroll>see the work
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M7 7l10 10M17 8v9H8" />
           </svg></a>
@@ -3047,9 +3315,110 @@
       </div>
     </section>
 
-    <!-- ============ 01 EDUCATION ============ -->
+    <!-- ============ 01 ABOUT (IDENTITY) ============ -->
+    <section class="sec" id="s-about">
+      <div class="kick" data-rv><span class="kn">01</span><span class="kl">identity</span></div>
+      <div class="about-grid">
+        <div class="about-copy">
+          <div class="about-tag-wrap" data-rv>
+            <span class="about-status-badge"><i></i>open to high-impact internships</span>
+          </div>
+          <h2 data-rv>the engineer<br>behind the code</h2>
+          <p class="lead" data-rv>I am an artificial intelligence and data science undergraduate with a strong bias toward building practical, production-ready software. Instead of keeping models confined to research notebooks, my focus is on engineering end-to-end pipelines that ingest real, messy data, extract actionable intelligence, and deliver measurable impact.</p>
+          <p class="flavor" data-rv>Whether predicting freight turnaround bottlenecks at Indian Railways, designing performant neural microservices, or building desktop enterprise software from scratch, I treat software engineering and machine learning as two halves of the same discipline. Code must be clean, algorithms must be lean, and systems must solve real operational problems.</p>
+          <div class="about-creed" data-rv>
+            <span>giving up is not in the blood · real software &gt; synthetic demos</span>
+          </div>
+          <div class="about-facts" data-rv>
+            <span class="chip">final year b.tech</span>
+            <span class="chip">gati shakti vishwavidyalaya</span>
+            <span class="chip">vadodara · delhi · open to relocate</span>
+          </div>
+        </div>
+
+        <div class="about-bento" data-rv>
+          <!-- Card 1: Three Core Pillars -->
+          <div class="bento-card pillars-card tilt">
+            <div class="bc-head">
+              <span>core engineering pillars</span>
+              <span class="bc-dot"></span>
+            </div>
+            <div class="pillar-items">
+              <div class="p-item">
+                <div class="p-num">01</div>
+                <div class="p-body">
+                  <div class="p-title">Applied AI &amp; Data Science</div>
+                  <p class="p-desc">Predictive modeling, deep learning pipelines, statistical machine learning, and data-driven forecasting on real messy datasets.</p>
+                  <div class="p-tags"><span>PyTorch</span><span>scikit-learn</span><span>Pandas</span><span>NumPy</span><span>Python</span></div>
+                </div>
+              </div>
+              <div class="p-item">
+                <div class="p-num">02</div>
+                <div class="p-body">
+                  <div class="p-title">Systems &amp; Algorithmic Problem Solving</div>
+                  <p class="p-desc">Algorithmic complexity optimization, high-performance backends, low-latency microservices, and robust data structures.</p>
+                  <div class="p-tags"><span>C++</span><span>Algorithms</span><span>Data Structures</span><span>Linux / CLI</span><span>OOP</span></div>
+                </div>
+              </div>
+              <div class="p-item">
+                <div class="p-num">03</div>
+                <div class="p-body">
+                  <div class="p-title">Intelligent Software Engineering</div>
+                  <p class="p-desc">Transforming analytical models into reliable, production-grade applications, robust APIs, and enterprise desktop tools.</p>
+                  <div class="p-tags"><span>FastAPI</span><span>Java / Swing</span><span>SQL</span><span>Docker</span><span>REST APIs</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 2: Interactive Terminal Readout -->
+          <div class="bento-card terminal-card tilt">
+            <div class="term-bar">
+              <div class="term-dots"><i></i><i></i><i></i></div>
+              <span class="term-user">anant@system:~</span>
+              <span class="term-act">profile.json</span>
+            </div>
+            <div class="term-code">
+              <div class="tc-line"><span class="tc-p">$</span> <span class="tc-c">cat profile.json</span></div>
+              <pre class="tc-json"><code>{
+  <span class="jk">"engineer"</span>: <span class="jv">"Anant Jain"</span>,
+  <span class="jk">"program"</span>: <span class="jv">"B.Tech in AI &amp; Data Science"</span>,
+  <span class="jk">"institution"</span>: <span class="jv">"Gati Shakti Vishwavidyalaya"</span>,
+  <span class="jk">"cohort"</span>: <span class="jv">"Class of 2027 · Final Year"</span>,
+  <span class="jk">"core_focus"</span>: [<span class="jv">"Applied AI/ML"</span>, <span class="jv">"Algorithmic Systems"</span>, <span class="jv">"Software Architecture"</span>],
+  <span class="jk">"location"</span>: <span class="jv">"Vadodara / Delhi · Open to Relocate"</span>,
+  <span class="jk">"availability"</span>: <span class="jv">"Open to High-Impact Internships"</span>
+}</code></pre>
+            </div>
+          </div>
+
+          <!-- Card 3: Quick Metrics Strip -->
+          <div class="bento-card metrics-card tilt">
+            <div class="m-col">
+              <div class="m-val">3</div>
+              <div class="m-label">internships shipped</div>
+              <div class="m-sub">BISAG-N · CRIS · Western Rly</div>
+            </div>
+            <div class="m-divider"></div>
+            <div class="m-col">
+              <div class="m-val">8</div>
+              <div class="m-label">featured builds</div>
+              <div class="m-sub">ML · desktop · analytics · systems</div>
+            </div>
+            <div class="m-divider"></div>
+            <div class="m-col">
+              <div class="m-val">pupil</div>
+              <div class="m-label">codeforces</div>
+              <div class="m-sub">algorithmic problem solver</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 EDUCATION ============ -->
     <section class="sec" id="s-edu">
-      <div class="kick" data-rv><span class="kn">01</span><span class="kl">education</span></div>
+      <div class="kick" data-rv><span class="kn">02</span><span class="kl">education</span></div>
       <div class="edu-grid">
         <div class="edu-copy">
           <h2 data-rv>the<br>education</h2>
@@ -3120,11 +3489,11 @@
       </div>
     </section>
 
-    <!-- ============ 02 EXPERIENCE ============ -->
+    <!-- ============ 03 EXPERIENCE ============ -->
     <section class="sec" id="s-exp">
       <div class="exp-head">
         <div>
-          <div class="kick" data-rv><span class="kn">02</span><span class="kl">experience</span></div>
+          <div class="kick" data-rv><span class="kn">03</span><span class="kl">experience</span></div>
           <h2 data-rv>the<br>experience</h2>
           <p class="lead exp-lead" data-rv>swipe the deck. three internships: real software, real data, real railways.
             no filler.</p>
@@ -3151,11 +3520,11 @@
       </div>
     </section>
 
-    <!-- ============ 03 PARKSIGHT (featured) ============ -->
+    <!-- ============ 04 PARKSIGHT (featured) ============ -->
     <section class="sec" id="s-park">
       <div class="proj-grid">
         <div class="proj-side">
-          <div class="kick" data-rv><span class="kn">03</span><span class="kl">project · full stack · ml ·
+          <div class="kick" data-rv><span class="kn">04</span><span class="kl">project · full stack · ml ·
               geospatial</span></div>
           <h2 data-rv>parksight</h2>
           <p class="lead" data-rv>bengaluru illegal parking intelligence platform: a full-stack operational dashboard
@@ -3214,11 +3583,11 @@
       </div>
     </section>
 
-    <!-- ============ 04 FOLIOGPT (featured) ============ -->
+    <!-- ============ 05 FOLIOGPT (featured) ============ -->
     <section class="sec" id="s-folio">
       <div class="proj-grid">
         <div class="proj-side">
-          <div class="kick" data-rv><span class="kn">04</span><span class="kl">project · nlp</span></div>
+          <div class="kick" data-rv><span class="kn">05</span><span class="kl">project · nlp</span></div>
           <h2 data-rv>foliogpt</h2>
           <p class="lead" data-rv>a shakespearean next-word predictor: type a line, get the next word, except the model
             believes it's 1595. lstm, gru, 1d cnn and distilgpt2, trained on 202,000+ words of the bard.</p>
@@ -3277,10 +3646,10 @@
       </div>
     </section>
 
-    <!-- ============ 05 BUILDS · natural flow ============ -->
+    <!-- ============ 06 BUILDS · natural flow ============ -->
     <section class="sec" id="s-builds">
       <div class="builds-center-head" data-rv>
-        <div class="kick"><span class="kn">05</span><span class="kl">the catalogue · more builds</span></div>
+        <div class="kick"><span class="kn">06</span><span class="kl">the catalogue · more builds</span></div>
       </div>
       <div class="caro" data-rv id="caro">
         <div class="caro-viewport" id="caroViewport">
@@ -3304,9 +3673,9 @@
       </div>
     </section>
 
-    <!-- ============ 06 SKILLS ============ -->
+    <!-- ============ 07 SKILLS ============ -->
     <section class="sec" id="s-skills">
-      <div class="kick" data-rv><span class="kn">06</span><span class="kl">skills</span></div>
+      <div class="kick" data-rv><span class="kn">07</span><span class="kl">skills</span></div>
       <div class="sk-grid">
         <div class="sphere-zone" data-rv>
           <div id="sphere"></div>
@@ -3334,9 +3703,9 @@
       </div>
     </section>
 
-    <!-- ============ 07 AWARDS ============ -->
+    <!-- ============ 08 AWARDS ============ -->
     <section class="sec" id="s-awards">
-      <div class="kick" data-rv><span class="kn">07</span><span class="kl">commendations</span></div>
+      <div class="kick" data-rv><span class="kn">08</span><span class="kl">commendations</span></div>
       <h2 data-rv>the shelf</h2>
       <p class="lead" data-rv>drag through the trophy shelf. hackathons, ranks, and one domain that let me run the
         workshops for a change.</p>
@@ -3351,9 +3720,9 @@
       </div>
     </section>
 
-    <!-- ============ 08 CONTACT ============ -->
+    <!-- ============ 09 CONTACT ============ -->
     <section class="sec" id="s-contact">
-      <div class="kick" data-rv><span class="kn">08</span><span class="kl">contact</span></div>
+      <div class="kick" data-rv><span class="kn">09</span><span class="kl">contact</span></div>
       <h2 class="big-state" data-rv>most people bounce at the top, <em>you made it to the bottom.</em></h2>
       <p class="contact-sub" data-rv>final-year ai &amp; ds student. competitive programmer. professional debugger of my
         own code. got into all this out of plain curiosity, still chasing the project that re-sparks it.</p>
@@ -3680,10 +4049,19 @@
         });
       });
 
-      /* progress + nav + section wiring (9 sections) */
-      const SECTIONS = [['s-hero', 'intro'], ['s-edu', 'education'], ['s-exp', 'experience'],
-      ['s-park', 'parksight'], ['s-folio', 'foliogpt'], ['s-builds', 'catalogue'],
-      ['s-skills', 'skills'], ['s-awards', 'commendations'], ['s-contact', 'contact']];
+      /* progress + nav + section wiring (10 sections) */
+      const SECTIONS = [
+        ['s-hero', 'intro'],
+        ['s-about', 'about'],
+        ['s-edu', 'education'],
+        ['s-exp', 'experience'],
+        ['s-park', 'parksight'],
+        ['s-folio', 'foliogpt'],
+        ['s-builds', 'catalogue'],
+        ['s-skills', 'skills'],
+        ['s-awards', 'commendations'],
+        ['s-contact', 'contact']
+      ];
       const nav = qs('#indexNav');
       SECTIONS.forEach(([id, label], i) => {
         const a = document.createElement('a');
@@ -3720,7 +4098,7 @@
       });
 
       function updateCenterSection() {
-        if (window.__wantShape === 7 && window.__stShelf && window.__stShelf.isActive) return;
+        if (window.__wantShape === 8 && window.__stShelf && window.__stShelf.isActive) return;
         const midY = window.innerHeight * 0.5;
         for (let i = 0; i < SECTIONS.length; i++) {
           const el = qs('#' + SECTIONS[i][0]);
@@ -4936,6 +5314,14 @@
             tar[i * 3 + 1] = (c * Math.sin(2 * t)) * 1.8 + (rB[i] - .5) * 1.2;
             tar[i * 3 + 2] = Math.sin(3 * t) * 2.6 + (rC[i] - .5) * 1.2;
           },
+          (i, u) => { /* about: neural lattice constellation */
+            const phi = Math.acos(1 - 2 * (i + .5) / N);
+            const theta = Math.PI * (1 + 5 ** 0.5) * i;
+            const r = 4.8 + Math.sin(i * .3) * .6 + (rA[i] - .5) * .8;
+            tar[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+            tar[i * 3 + 1] = r * Math.cos(phi) * 1.05 + (rB[i] - .5) * .5;
+            tar[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta);
+          },
           (i, u) => { /* education: double helix + rungs */
             const y0 = (u - .5) * 13, a0 = y0 * .55, strand = i % 2, rung = rC[i] < .09;
             const px = Math.cos(a0) * 2.7, pz = Math.sin(a0) * 2.7;
@@ -4989,12 +5375,21 @@
             }
             else {
               const a = rB[i] * Math.PI * 2, R = .8 + rA[i] * 4.2;
-              tar[i * 3] = Math.cos(a) * R; tar[i * 3 + 1] = Math.sin(a) * R; tar[i * 3 + 2] = (rA[i] - .5) * 1.2;
+              tar[i * 3] = Math.cos(a) * R; tar[i * 3 + 1] = Math.sin(a) * 2; tar[i * 3 + 2] = (rA[i] - .5) * 1.2;
             }
           }];
-        const CONF = [{ rx: .15, ry: -.5, z: 16 }, { rx: .4, ry: .5, z: 17 }, { rx: .95, ry: .1, z: 15 },
-        { rx: .1, ry: -.25, z: 15.5 }, { rx: .2, ry: .35, z: 13.5 }, { rx: .3, ry: .15, z: 16 },
-        { rx: .05, ry: .2, z: 15 }, { rx: .6, ry: 0, z: 15 }, { rx: 0, ry: 0, z: 12.5 }];
+        const CONF = [
+          { rx: .15, ry: -.5, z: 16 },
+          { rx: .25, ry: .35, z: 15.5 },
+          { rx: .4, ry: .5, z: 17 },
+          { rx: .95, ry: .1, z: 15 },
+          { rx: .1, ry: -.25, z: 15.5 },
+          { rx: .2, ry: .35, z: 13.5 },
+          { rx: .3, ry: .15, z: 16 },
+          { rx: .05, ry: .2, z: 15 },
+          { rx: .6, ry: 0, z: 15 },
+          { rx: 0, ry: 0, z: 12.5 }
+        ];
         let idx = 0;
         function build(k) { for (let i = 0; i < N; i++)SHAPES[k](i, i / N); }
         function setShape(k) { idx = k; build(k); }
