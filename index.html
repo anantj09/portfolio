@@ -235,13 +235,74 @@
       color: var(--mut)
     }
 
-    .ld-num {
-      position: absolute;
-      bottom: 28px;
-      right: 32px;
+    .ld-prompt {
       font-family: var(--fm);
-      font-size: 12px;
-      color: var(--mut)
+      font-size: 11px;
+      letter-spacing: .28em;
+      text-transform: uppercase;
+      color: var(--acc);
+      margin-top: 24px;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity .4s ease, transform .4s ease;
+      user-select: none;
+      pointer-events: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .ld-prompt::before,
+    .ld-prompt::after {
+      content: '·';
+      color: var(--acc);
+      font-size: 14px;
+      opacity: .75;
+    }
+
+    .ld-prompt.show {
+      opacity: 1;
+      transform: translateY(0);
+      animation: ldFlicker 2.4s infinite ease-in-out;
+    }
+
+    @keyframes ldFlicker {
+      0%, 100% {
+        opacity: .95;
+        text-shadow: 0 0 10px rgba(255, 77, 0, .75), 0 0 22px rgba(255, 77, 0, .4);
+      }
+      22% {
+        opacity: .35;
+        text-shadow: 0 0 3px rgba(255, 77, 0, .2);
+      }
+      25% {
+        opacity: .92;
+        text-shadow: 0 0 12px rgba(255, 77, 0, .8);
+      }
+      27% {
+        opacity: .2;
+        text-shadow: none;
+      }
+      30% {
+        opacity: 1;
+        text-shadow: 0 0 15px rgba(255, 77, 0, .85), 0 0 28px rgba(255, 77, 0, .5);
+      }
+      68% {
+        opacity: .85;
+        text-shadow: 0 0 8px rgba(255, 77, 0, .6);
+      }
+      70% {
+        opacity: .25;
+        text-shadow: none;
+      }
+      73% {
+        opacity: 1;
+        text-shadow: 0 0 16px rgba(255, 77, 0, .9), 0 0 30px rgba(255, 77, 0, .55);
+      }
+    }
+
+    #loader.ready-to-open {
+      cursor: pointer;
     }
 
     .l {
@@ -2944,6 +3005,7 @@
     </div>
     <div class="ld-name" id="ldName">ANANT JAIN</div>
     <div class="ld-sub">portfolio</div>
+    <div class="ld-prompt" id="ldPrompt">click to continue</div>
   </div>
 
   <main>
@@ -3502,28 +3564,76 @@
         }
 
         let finished = false;
-        function finishAndOpen() {
-          if (finished) return;
+        let waitingForClick = false;
+        let proceeded = false;
+
+        function proceed() {
+          if (proceeded) return;
+          proceeded = true;
+          waitingForClick = false;
+          loader.removeEventListener('click', proceed);
+          loader.removeEventListener('touchend', proceed);
+          window.removeEventListener('keydown', keyProceed);
+
+          // Direct user gesture starts music immediately!
+          if (window.startAudio) {
+            try { window.startAudio(); } catch (err) {}
+          } else if (window.unlockAndPlay) {
+            try { window.unlockAndPlay(); } catch (err) {}
+          }
+
+          gsap.to(loader, {
+            yPercent: -100,
+            duration: 0.85,
+            ease: 'power4.inOut',
+            onComplete: done
+          });
+        }
+
+        function keyProceed(e) {
+          if (e.key === 'Enter' || e.key === ' ' || e.key === 'ArrowDown') {
+            proceed();
+          }
+        }
+
+        function finishAndReady(immediateProceed = false) {
+          if (finished) {
+            if (immediateProceed) proceed();
+            return;
+          }
           finished = true;
           gsap.killTweensOf(state);
+
+          if (immediateProceed) {
+            updateUI(100);
+            proceed();
+            return;
+          }
+
           gsap.to(state, {
             p: 100,
-            duration: 0.42,
+            duration: 0.38,
             ease: 'power2.out',
             onUpdate: () => updateUI(state.p),
             onComplete: () => {
               updateUI(100);
-              setTimeout(() => {
-                gsap.to(loader, {
-                  yPercent: -100,
-                  duration: 0.85,
-                  ease: 'power4.inOut',
-                  onComplete: done
-                });
-              }, 180);
+              const promptEl = qs('#ldPrompt');
+              if (promptEl) promptEl.classList.add('show');
+              loader.classList.add('ready-to-open');
+              waitingForClick = true;
+
+              loader.addEventListener('click', proceed);
+              loader.addEventListener('touchend', proceed);
+              window.addEventListener('keydown', keyProceed);
             }
           });
         }
+
+        loader.addEventListener('click', () => {
+          if (!waitingForClick && !proceeded && isEverythingLoaded()) {
+            finishAndReady(true);
+          }
+        });
 
         // Smooth initial progression up to ~88%
         const initialTween = gsap.to(state, {
@@ -3532,25 +3642,25 @@
           ease: 'power1.out',
           onUpdate: () => updateUI(state.p),
           onComplete: () => {
-            if (isEverythingLoaded()) finishAndOpen();
+            if (isEverythingLoaded()) finishAndReady();
           }
         });
 
         function checkBackground() {
           if (isEverythingLoaded()) {
             if (state.p >= 72) {
-              finishAndOpen();
+              finishAndReady();
             } else {
               initialTween.eventCallback('onUpdate', () => {
                 updateUI(state.p);
-                if (state.p >= 75) finishAndOpen();
+                if (state.p >= 75) finishAndReady();
               });
             }
           }
         }
 
         window.addEventListener('webgl-ready', checkBackground);
-        setTimeout(finishAndOpen, 3500);
+        setTimeout(() => { if (!finished) finishAndReady(); }, 3500);
       });
 
       /* cursor */
@@ -3997,7 +4107,7 @@
         const DIR = 'music/';
         const MUSIC_FILES = ['music/01.mp3', 'music/02.mp3'];
         const btn = qs('#musicBtn'), panel = qs('#musicPanel');
-        const audio = new Audio(); audio.preload = 'auto'; audio.volume = .7;
+        const audio = new Audio(); audio.preload = 'auto'; audio.volume = .7; window.__audio = audio;
         let tracks = [], cur = 0, started = false, panelOpen = false;
         const seek = qs('#mpSeek'), vol = qs('#mpVol'), tEl = qs('#mpTime'), dEl = qs('#mpDur'),
           titleEl = qs('#mpTitle'), subEl = qs('#mpSub'), listEl = qs('#mpList'), countEl = qs('#mpCount');
@@ -4139,6 +4249,27 @@
         } else {
           boot(['music/01.mp3', 'music/02.mp3']);
         }
+
+        window.startAudio = function() {
+          if (!tracks.length) return;
+          if (!audio.src) audio.src = tracks[cur || 0];
+          started = true;
+          const p = audio.play();
+          if (p && p.then) {
+            p.then(() => {
+              setUI();
+              cleanupUnlock();
+            }).catch(() => {
+              attachUnlock();
+              setUI();
+            });
+          } else {
+            setUI();
+            cleanupUnlock();
+          }
+        };
+        window.unlockAndPlay = unlockAndPlay;
+
         window.addEventListener('site-opened', () => {
           if (audio.paused) unlockAndPlay();
         });
