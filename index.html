@@ -267,34 +267,43 @@
     }
 
     @keyframes ldFlicker {
-      0%, 100% {
+
+      0%,
+      100% {
         opacity: .95;
         text-shadow: 0 0 10px rgba(255, 77, 0, .75), 0 0 22px rgba(255, 77, 0, .4);
       }
+
       22% {
         opacity: .35;
         text-shadow: 0 0 3px rgba(255, 77, 0, .2);
       }
+
       25% {
         opacity: .92;
         text-shadow: 0 0 12px rgba(255, 77, 0, .8);
       }
+
       27% {
         opacity: .2;
         text-shadow: none;
       }
+
       30% {
         opacity: 1;
         text-shadow: 0 0 15px rgba(255, 77, 0, .85), 0 0 28px rgba(255, 77, 0, .5);
       }
+
       68% {
         opacity: .85;
         text-shadow: 0 0 8px rgba(255, 77, 0, .6);
       }
+
       70% {
         opacity: .25;
         text-shadow: none;
       }
+
       73% {
         opacity: 1;
         text-shadow: 0 0 16px rgba(255, 77, 0, .9), 0 0 30px rgba(255, 77, 0, .55);
@@ -451,10 +460,13 @@
     }
 
     @keyframes musicPulse {
-      0%, 100% {
+
+      0%,
+      100% {
         box-shadow: 0 0 0 0 rgba(255, 77, 0, 0);
         border-color: var(--line2)
       }
+
       50% {
         box-shadow: 0 0 0 5px rgba(255, 77, 0, .25);
         border-color: var(--acc)
@@ -1224,8 +1236,36 @@
     }
 
     @keyframes livePulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: .4; transform: scale(.85); }
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: .4;
+        transform: scale(.85);
+      }
+    }
+
+    .about-copy .lead {
+      font-size: 20px;
+      line-height: 1.55;
+      font-weight: 500;
+      color: #FAF7F0;
+      letter-spacing: -.01em;
+      max-width: 580px;
+      margin-top: 18px;
+    }
+
+    .about-copy .flavor {
+      font-size: 14.5px;
+      line-height: 1.75;
+      color: #A8A092;
+      font-weight: 400;
+      max-width: 580px;
+      margin: 20px 0 0;
     }
 
     .about-creed {
@@ -1239,13 +1279,6 @@
       letter-spacing: .06em;
       color: #DAD3C5;
       text-transform: lowercase
-    }
-
-    .about-facts {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 28px
     }
 
     .about-bento {
@@ -1366,9 +1399,20 @@
       border-radius: 50%
     }
 
-    .term-dots i:nth-child(1) { background: #E05D44; opacity: .85 }
-    .term-dots i:nth-child(2) { background: #DDB035; opacity: .85 }
-    .term-dots i:nth-child(3) { background: #3FB950; opacity: .85 }
+    .term-dots i:nth-child(1) {
+      background: #E05D44;
+      opacity: .85
+    }
+
+    .term-dots i:nth-child(2) {
+      background: #DDB035;
+      opacity: .85
+    }
+
+    .term-dots i:nth-child(3) {
+      background: #3FB950;
+      opacity: .85
+    }
 
     .term-user {
       color: var(--acc);
@@ -1394,8 +1438,13 @@
       margin-bottom: 8px
     }
 
-    .tc-p { color: var(--acc) }
-    .tc-c { color: var(--ink) }
+    .tc-p {
+      color: var(--acc)
+    }
+
+    .tc-c {
+      color: var(--ink)
+    }
 
     .tc-json {
       margin: 0;
@@ -1406,8 +1455,13 @@
       overflow-x: auto
     }
 
-    .jk { color: #D89858 }
-    .jv { color: #A8D196 }
+    .jk {
+      color: #D89858
+    }
+
+    .jv {
+      color: #A8D196
+    }
 
     .metrics-card {
       display: grid;
@@ -1450,9 +1504,20 @@
     /* ===== education ===== */
     .edu-grid {
       display: grid;
-      grid-template-columns: 1fr 1.1fr;
+      grid-template-columns: 1.15fr 1fr;
       gap: 6vw;
       align-items: start
+    }
+
+    .edu-cards {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      order: 1;
+    }
+
+    .edu-copy {
+      order: 2;
     }
 
     .edu-copy p {
@@ -1485,79 +1550,145 @@
     }
 
     .report {
-      background: var(--bg2);
-      border: 1px solid var(--line2);
-      border-radius: 22px;
-      padding: 38px 40px;
-      box-shadow: 0 50px 90px -50px rgba(0, 0, 0, .9), 0 1px 0 rgba(245, 241, 231, .06) inset
+      background: #14120E;
+      background-image:
+        radial-gradient(rgba(245, 241, 231, .035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(224, 190, 121, .03) 0%, transparent 40%);
+      background-size: 20px 20px, 100% 100%;
+      border: 1px solid rgba(224, 190, 121, .2);
+      border-left: 3px solid var(--sand);
+      border-radius: 8px;
+      padding: 34px 38px;
+      box-shadow: 0 40px 80px -30px rgba(0, 0, 0, .95), 0 0 0 1px rgba(245, 241, 231, .04) inset;
+      position: relative;
+      overflow: hidden;
+      transition: border-color .35s, transform .7s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .report::before {
+      content: 'ACADEMIC TRANSCRIPT // ARCHIVAL DOSSIER';
+      position: absolute;
+      bottom: 12px;
+      right: 18px;
+      font-family: var(--fm);
+      font-size: 8.5px;
+      letter-spacing: .2em;
+      color: rgba(224, 190, 121, .15);
+      pointer-events: none;
+      text-transform: uppercase;
+    }
+
+    .report:hover {
+      border-color: rgba(224, 190, 121, .45);
+      border-left-color: var(--acc);
+    }
+
+    .school-card {
+      margin-top: 20px;
+      border-left: 3px solid rgba(224, 190, 121, .45);
+      padding: 28px 34px;
+    }
+
+    .school-card::before {
+      content: 'CBSE BOARD RECORD // SECONDARY ARCHIVE';
     }
 
     .rp-head {
       font-family: var(--fm);
       font-size: 10px;
-      letter-spacing: .22em;
+      letter-spacing: .18em;
       text-transform: uppercase;
       color: var(--mut);
       display: flex;
       justify-content: space-between;
-      gap: 20px;
-      padding-bottom: 18px;
-      border-bottom: 1px solid var(--line)
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 16px;
+      border-bottom: 1px dashed rgba(245, 241, 231, .18);
+    }
+
+    .rp-head .rp-inst {
+      color: var(--sand);
+      font-weight: 500;
+      letter-spacing: .15em;
+    }
+
+    .rp-head .rp-pill {
+      font-size: 8.5px;
+      letter-spacing: .12em;
+      padding: 2px 7px;
+      border-radius: 3px;
+      background: rgba(224, 190, 121, .08);
+      border: 1px solid rgba(224, 190, 121, .25);
+      color: var(--sand);
+      text-transform: uppercase;
     }
 
     .rp-rows {
-      margin-top: 24px
+      margin-top: 20px;
     }
 
     .rrow {
       display: flex;
       align-items: baseline;
-      font-size: 15px;
-      margin: 13px 0
+      font-size: 14.5px;
+      margin: 10px 0;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed rgba(245, 241, 231, .08);
+    }
+
+    .rrow:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
     }
 
     .rrow .rk {
       font-family: var(--fm);
-      font-size: 10px;
-      letter-spacing: .16em;
+      font-size: 9.5px;
+      letter-spacing: .18em;
       color: var(--mut);
       text-transform: uppercase;
       flex: none;
-      width: 130px
+      width: 130px;
     }
 
     .rrow .rd {
       flex: 1;
-      border-bottom: 1px dotted rgba(245, 241, 231, .2);
-      margin: 0 10px;
-      transform: translateY(-4px)
+      border-bottom: none;
+      margin: 0;
+      transform: none;
     }
 
     .rrow .rv {
-      color: var(--ink)
+      font-family: var(--fm);
+      font-size: 12.5px;
+      color: var(--ink);
+      letter-spacing: .02em;
     }
 
     .rp-cgpa {
       display: flex;
       align-items: center;
-      gap: 28px;
-      margin-top: 32px;
-      transform: translateZ(50px)
+      gap: 24px;
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px dashed rgba(245, 241, 231, .18);
+      transform: translateZ(40px);
     }
 
     .cg-arc {
       width: 120px;
       height: 120px;
-      flex: none
+      flex: none;
     }
 
     .cg-arc circle {
       fill: none;
-      stroke-width: 6
+      stroke-width: 6;
     }
 
     .cg-track {
-      stroke: #2A2620
+      stroke: #25221B;
     }
 
     .cg-fill {
@@ -1567,52 +1698,47 @@
       stroke-dashoffset: 339.29;
       transform: rotate(-90deg);
       transform-origin: center;
-      transition: stroke-dashoffset 1.6s cubic-bezier(.22, 1, .36, 1)
+      transition: stroke-dashoffset 1.6s cubic-bezier(.22, 1, .36, 1);
     }
 
     .cg-num {
       font-family: var(--fd);
       font-weight: 600;
-      font-size: 62px;
-      line-height: 1
+      font-size: 58px;
+      line-height: 1;
     }
 
     .cg-num small {
       font-size: 20px;
       color: var(--mut);
-      font-weight: 500
+      font-weight: 500;
     }
 
     .cg-lab {
       font-family: var(--fm);
-      font-size: 10px;
-      letter-spacing: .2em;
+      font-size: 9.5px;
+      letter-spacing: .18em;
       text-transform: uppercase;
-      color: var(--mut);
-      margin-top: 8px
-    }
-
-    .school-card {
-      margin-top: 22px;
-      padding: 30px 36px;
+      color: var(--sand);
+      margin-top: 6px;
     }
 
     .rp-mini-circles {
       display: flex;
       align-items: center;
-      gap: 36px;
-      margin-top: 26px;
-      padding-top: 22px;
-      border-top: 1px solid var(--line);
-      flex-wrap: wrap
+      gap: 32px;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px dashed rgba(245, 241, 231, .18);
+      flex-wrap: wrap;
     }
 
     .mini-circle-item {
       display: flex;
       align-items: center;
-      gap: 18px;
+      gap: 16px;
       flex: 1;
-      min-width: 160px
+      min-width: 150px;
     }
 
     .mini-arc {
@@ -3068,6 +3194,14 @@
         gap: 54px
       }
 
+      .edu-copy {
+        order: 1;
+      }
+
+      .edu-cards {
+        order: 2;
+      }
+
       .stat-row {
         grid-template-columns: repeat(2, 1fr)
       }
@@ -3324,8 +3458,13 @@
             <span class="about-status-badge"><i></i>open to high-impact internships</span>
           </div>
           <h2 data-rv>the engineer<br>behind the code</h2>
-          <p class="lead" data-rv>AI &amp; Data Science undergraduate with a bias toward production software. Instead of keeping models confined to notebooks, I engineer pipelines that turn messy real-world data into measurable operational impact.</p>
-          <p class="flavor" data-rv>Whether predicting freight turnaround bottlenecks, designing performant neural microservices, or building desktop enterprise software from scratch, I treat software engineering and machine learning as two halves of the same discipline. Code must be clean, algorithms must be lean, and systems must solve real operational problems.</p>
+          <p class="lead" data-rv>AI &amp; Data Science undergraduate with a bias toward production software. Instead of
+            keeping models confined to notebooks, I engineer pipelines that turn messy real-world data into measurable
+            operational impact.</p>
+          <p class="flavor" data-rv>Whether predicting freight turnaround bottlenecks, designing performant neural
+            microservices, or building desktop enterprise software from scratch, I treat software engineering and
+            machine learning as two halves of the same discipline. Code must be clean, algorithms must be lean, and
+            systems must solve real operational problems.</p>
           <div class="about-creed" data-rv>
             <span>build lean · optimize ruthlessly · ship to production</span>
           </div>
@@ -3343,24 +3482,31 @@
                 <div class="p-num">01</div>
                 <div class="p-body">
                   <div class="p-title">Applied AI &amp; Data Science</div>
-                  <p class="p-desc">Predictive modeling, deep learning pipelines, statistical machine learning, and data-driven forecasting on real messy datasets.</p>
-                  <div class="p-tags"><span>PyTorch</span><span>CUDA</span><span>Transformers</span><span>Hugging Face</span></div>
+                  <p class="p-desc">Predictive modeling, deep learning pipelines, statistical machine learning, and
+                    data-driven forecasting on real messy datasets.</p>
+                  <div class="p-tags"><span>Python</span><span>GenAI / LLMs</span><span>LoRA /
+                      QLoRA</span><span>Ollama</span></div>
                 </div>
               </div>
               <div class="p-item">
                 <div class="p-num">02</div>
                 <div class="p-body">
                   <div class="p-title">Systems &amp; Algorithmic Problem Solving</div>
-                  <p class="p-desc">Algorithmic complexity optimization, high-performance backends, low-latency microservices, and robust data structures.</p>
-                  <div class="p-tags"><span>C++</span><span>Algorithms</span><span>Data Structures</span><span>Linux / CLI</span><span>OOP</span></div>
+                  <p class="p-desc">Algorithmic complexity optimization, high-performance backends, low-latency
+                    microservices, and robust data structures.</p>
+                  <div class="p-tags"><span>C++</span><span>Algorithms</span><span>Data Structures</span><span>Linux /
+                      CLI</span><span>OOP</span></div>
                 </div>
               </div>
               <div class="p-item">
                 <div class="p-num">03</div>
                 <div class="p-body">
                   <div class="p-title">Intelligent Software Engineering</div>
-                  <p class="p-desc">Transforming analytical models into reliable, production-grade applications, robust APIs, and enterprise desktop tools.</p>
-                  <div class="p-tags"><span>FastAPI</span><span>Java</span><span>AWS</span><span>Docker</span><span>PostgreSQL</span></div>
+                  <p class="p-desc">Transforming analytical models into reliable, production-grade applications, robust
+                    APIs, and enterprise desktop tools.</p>
+                  <div class="p-tags">
+                    <span>FastAPI</span><span>Java</span><span>AWS</span><span>Docker</span><span>PostgreSQL</span>
+                  </div>
                 </div>
               </div>
             </div>
@@ -3404,7 +3550,10 @@
         </div>
         <div class="edu-cards" data-rv>
           <div class="report tilt" id="eduCard">
-            <div class="rp-head"><span>GATI SHAKTI VISHWAVIDYALAYA</span><span>EST. 2023</span></div>
+            <div class="rp-head">
+              <span class="rp-inst">GATI SHAKTI VISHWAVIDYALAYA</span>
+              <span class="rp-pill">RECORD NO. GSV-2027</span>
+            </div>
             <div class="rp-rows">
               <div class="rrow"><span class="rk">degree</span><span class="rd"></span><span class="rv">B.Tech · AI &amp;
                   Data Science</span></div>
@@ -3412,7 +3561,8 @@
                   2027</span></div>
               <div class="rrow"><span class="rk">specialization</span><span class="rd"></span><span
                   class="rv">Transportation &amp; Logistics</span></div>
-              <div class="rrow"><span class="rk">year</span><span class="rd"></span><span class="rv">Final</span></div>
+              <div class="rrow"><span class="rk">status</span><span class="rd"></span><span class="rv">Final Year
+                  Undergraduate</span></div>
             </div>
             <div class="rp-cgpa">
               <svg class="cg-arc" viewBox="0 0 120 120">
@@ -3427,12 +3577,15 @@
           </div>
 
           <div class="report school-card tilt" id="schoolCard">
-            <div class="rp-head"><span>D.A.V. CENTENARY PUBLIC SCHOOL</span><span>CBSE</span></div>
+            <div class="rp-head">
+              <span class="rp-inst">D.A.V. CENTENARY PUBLIC SCHOOL</span>
+              <span class="rp-pill">RECORD NO. DAV-2023</span>
+            </div>
             <div class="rp-rows">
               <div class="rrow"><span class="rk">class xii</span><span class="rd"></span><span class="rv">Senior
-                  Secondary · 2023</span></div>
-              <div class="rrow"><span class="rk">class x</span><span class="rd"></span><span class="rv">Secondary ·
-                  2021</span></div>
+                  Secondary (CBSE) · 2023</span></div>
+              <div class="rrow"><span class="rk">class x</span><span class="rd"></span><span class="rv">Secondary (CBSE)
+                  · 2021</span></div>
             </div>
             <div class="rp-mini-circles">
               <div class="mini-circle-item">
@@ -3918,9 +4071,9 @@
 
           // Direct user gesture starts music immediately!
           if (window.startAudio) {
-            try { window.startAudio(); } catch (err) {}
+            try { window.startAudio(); } catch (err) { }
           } else if (window.unlockAndPlay) {
-            try { window.unlockAndPlay(); } catch (err) {}
+            try { window.unlockAndPlay(); } catch (err) { }
           }
 
           gsap.to(loader, {
@@ -4545,7 +4698,7 @@
               started = true;
               setUI();
               cleanupUnlock();
-            }).catch(() => {});
+            }).catch(() => { });
           } else {
             cleanupUnlock();
           }
@@ -4601,7 +4754,7 @@
           boot(['music/01.mp3', 'music/02.mp3']);
         }
 
-        window.startAudio = function() {
+        window.startAudio = function () {
           if (!tracks.length) return;
           if (!audio.src) audio.src = tracks[cur || 0];
           started = true;
@@ -4710,10 +4863,10 @@
 
       /* ---------- skills bubble sphere ---------- */
       safe('sphere', () => {
-        const TAGS = [['Python', 0], ['C++', 0], ['SQL', 0], ['Java', 0],
+        const TAGS = [['Python', 0], ['C++', 0], ['C', 0], ['SQL', 0], ['Java', 0],
         ['TensorFlow', 1], ['PyTorch', 1], ['HuggingFace', 1], ['LangGraph', 1], ['RAG', 1], ['NLP', 1], ['Computer Vision', 1], ['LLMs · GenAI', 1], ['Time Series', 1],
         ['FastAPI', 2], ['Flask', 2], ['Docker', 2], ['Redis', 2], ['Supabase', 2], ['MongoDB', 2], ['MySQL', 2], ['NoSQL', 2], ['REST', 2],
-        ['Git', 3], ['GitHub Actions', 3], ['Linux', 3], ['Postman', 3], ['Oracle SQL', 3], ['AWS EC2', 3]];
+        ['Git', 3], ['GitHub Actions', 3], ['Linux', 3], ['Postman', 3], ['Oracle SQL', 3], ['AWS EC2', 3], ['Ollama', 3]];
         const box = qs('#sphere'), els = [], pts = [];
         TAGS.forEach(([t, c]) => {
           const s = document.createElement('span');
@@ -5286,13 +5439,22 @@
             tar[i * 3 + 1] = (c * Math.sin(2 * t)) * 1.8 + (rB[i] - .5) * 1.2;
             tar[i * 3 + 2] = Math.sin(3 * t) * 2.6 + (rC[i] - .5) * 1.2;
           },
-          (i, u) => { /* about: neural lattice constellation */
-            const phi = Math.acos(1 - 2 * (i + .5) / N);
-            const theta = Math.PI * (1 + 5 ** 0.5) * i;
-            const r = 4.8 + Math.sin(i * .3) * .6 + (rA[i] - .5) * .8;
-            tar[i * 3] = r * Math.sin(phi) * Math.cos(theta);
-            tar[i * 3 + 1] = r * Math.cos(phi) * 1.05 + (rB[i] - .5) * .5;
-            tar[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta);
+          (i, u) => { /* about: 3D infinity ribbon lemniscate */
+            const t = u * Math.PI * 2;
+            const sn = Math.sin(t), cs = Math.cos(t);
+            const denom = 1 + sn * sn;
+            const scale = 7.2;
+            const bx = (scale * cs) / denom;
+            const by = (scale * sn * cs) / denom;
+            const bz = Math.sin(t * 2) * 2.0;
+            const w = (rA[i] - .5) * 1.5;
+            let x = bx - sn * w * .8 + (rB[i] - .5) * .35;
+            let y = by + cs * w * .8 + (rC[i] - .5) * .35;
+            let z = bz + (rA[i] - .5) * .8;
+            [y, z] = rx_(y, z, .4);
+            tar[i * 3] = x;
+            tar[i * 3 + 1] = y;
+            tar[i * 3 + 2] = z;
           },
           (i, u) => { /* education: double helix + rungs */
             const y0 = (u - .5) * 13, a0 = y0 * .55, strand = i % 2, rung = rC[i] < .09;
