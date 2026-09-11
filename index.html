@@ -383,6 +383,23 @@
       animation-delay: .36s
     }
 
+    .hbtn.pulse {
+      animation: musicPulse 2.4s ease-in-out infinite;
+      color: var(--ink);
+      border-color: rgba(255, 77, 0, .45)
+    }
+
+    @keyframes musicPulse {
+      0%, 100% {
+        box-shadow: 0 0 0 0 rgba(255, 77, 0, 0);
+        border-color: var(--line2)
+      }
+      50% {
+        box-shadow: 0 0 0 5px rgba(255, 77, 0, .25);
+        border-color: var(--acc)
+      }
+    }
+
     @keyframes eqb {
       from {
         height: 4px
@@ -3454,6 +3471,7 @@
         const done = () => {
           loader.classList.add('done');
           document.body.classList.add('ready');
+          window.dispatchEvent(new CustomEvent('site-opened'));
         };
 
         if (REDUCED || !window.gsap) {
@@ -3977,8 +3995,7 @@
       /* ---------- MUSIC PLAYER ---------- */
       safe('music', () => {
         const DIR = 'music/';
-        /* option A: list exact filenames here. option B: leave empty → auto-detects 01.mp3, 02.mp3 … */
-        const MUSIC_FILES = [];
+        const MUSIC_FILES = ['music/01.mp3', 'music/02.mp3'];
         const btn = qs('#musicBtn'), panel = qs('#musicPanel');
         const audio = new Audio(); audio.preload = 'auto'; audio.volume = .7;
         let tracks = [], cur = 0, started = false, panelOpen = false;
@@ -3987,6 +4004,7 @@
         const fmt = s => { if (!isFinite(s)) return '0:00'; const m = (s / 60) | 0, x = (s % 60) | 0; return m + ':' + String(x).padStart(2, '0'); };
         const nameOf = src => src.split('/').pop().replace(/\.[^.]+$/, '');
         try { const v = localStorage.getItem('mcv_vol'); if (v != null) { audio.volume = clamp(+v, 0, 1); vol.value = Math.round(audio.volume * 100); } } catch (e) { }
+
         function renderList() {
           listEl.innerHTML = '';
           tracks.forEach((src, i) => {
@@ -3998,19 +4016,25 @@
           countEl.textContent = tracks.length + ' tracks · /' + DIR.replace('/', '');
           subEl.textContent = tracks.length ? ('track ' + (cur + 1) + ' of ' + tracks.length) : '';
         }
+
         function setUI() {
-          btn.classList.toggle('playing', started && !audio.paused);
+          const isPlaying = started && !audio.paused;
+          btn.classList.toggle('playing', isPlaying);
+          btn.classList.toggle('pulse', !isPlaying);
           qs('#mpPlayIco').style.display = audio.paused ? 'block' : 'none';
           qs('#mpPauseIco').style.display = audio.paused ? 'none' : 'block';
           if (tracks.length) titleEl.textContent = audio.paused && started ? 'paused' : nameOf(tracks[cur]);
         }
+
         function play(i) {
           if (!tracks.length) return;
           cur = ((i % tracks.length) + tracks.length) % tracks.length;
           audio.src = tracks[cur];
+          started = true;
           audio.play().then(setUI).catch(setUI);
           renderList();
         }
+
         audio.addEventListener('ended', () => play(cur + 1));
         audio.addEventListener('error', () => { if (started && tracks.length > 1) play(cur + 1); });
         audio.addEventListener('timeupdate', () => {
@@ -4027,13 +4051,17 @@
         qs('#mpPrev').addEventListener('click', () => play(cur - 1));
         qs('#mpNext').addEventListener('click', () => play(cur + 1));
         qs('#mpPlay').addEventListener('click', () => {
-          if (!tracks.length) { toast('no tracks yet: drop mp3s into /music as 01.mp3, 02.mp3 …'); return; }
-          if (!started) { tryStart(); return; }
+          if (!tracks.length) { toast('no tracks yet'); return; }
+          if (!started) { play(0); return; }
           if (audio.paused) audio.play().then(setUI).catch(setUI);
           else { audio.pause(); setUI(); }
         });
+
         btn.addEventListener('click', e => {
           e.stopPropagation();
+          if (audio.paused && tracks.length) {
+            play(cur);
+          }
           panelOpen = !panelOpen; panel.classList.toggle('open', panelOpen);
         });
         qs('#mpClose').addEventListener('click', () => { panelOpen = false; panel.classList.remove('open'); });
@@ -4047,45 +4075,73 @@
             panelOpen = false; panel.classList.remove('open');
           }
         });
-        function tryStart() {
-          if (started || !tracks.length) return;
-          started = true; audio.src = tracks[0];
-          audio.play().then(setUI).catch(() => {
-            const go = () => { audio.play().then(setUI).catch(setUI); };
-            addEventListener('pointerdown', go, { once: true, passive: true });
-            addEventListener('keydown', go, { once: true });
-            setUI();
+
+        const unlockEvents = ['pointerdown', 'touchstart', 'touchend', 'click', 'keydown'];
+        function unlockAndPlay() {
+          if (audio.paused && tracks.length) {
+            if (!audio.src) audio.src = tracks[cur || 0];
+            audio.play().then(() => {
+              started = true;
+              setUI();
+              cleanupUnlock();
+            }).catch(() => {});
+          } else {
+            cleanupUnlock();
+          }
+        }
+        function cleanupUnlock() {
+          unlockEvents.forEach(ev => {
+            window.removeEventListener(ev, unlockAndPlay, true);
+            document.removeEventListener(ev, unlockAndPlay, true);
           });
+        }
+        function attachUnlock() {
+          unlockEvents.forEach(ev => {
+            window.addEventListener(ev, unlockAndPlay, { capture: true, once: true, passive: true });
+            document.addEventListener(ev, unlockAndPlay, { capture: true, once: true, passive: true });
+          });
+        }
+
+        function tryStart() {
+          if (!tracks.length) return;
+          audio.src = tracks[cur || 0];
+          const p = audio.play();
+          if (p && p.then) {
+            p.then(() => {
+              started = true;
+              setUI();
+            }).catch(() => {
+              attachUnlock();
+              setUI();
+            });
+          } else {
+            attachUnlock();
+          }
           renderList();
         }
+
         const boot = files => {
           tracks = (files || []).filter(Boolean);
           if (!tracks.length) {
             btn.classList.remove('playing');
             titleEl.textContent = 'no tracks found';
             subEl.textContent = '/music is empty';
-            countEl.textContent = 'drop 01.mp3, 02.mp3 … into /music or list exact names in MUSIC_FILES (music script block)';
+            countEl.textContent = 'drop 01.mp3, 02.mp3 into /music';
             listEl.innerHTML = '';
             return;
           }
           renderList();
           tryStart();
         };
-        if (MUSIC_FILES.length) boot(MUSIC_FILES.slice());
-        else {
-          (function probe(i, found) {
-            if (i > 20) { boot(found); return; }
-            const src = DIR + String(i).padStart(2, '0') + '.mp3';
-            const a = new Audio(); a.preload = 'metadata';
-            let settled = false;
-            const ok = () => { if (settled) return; settled = true; found.push(src); probe(i + 1, found); };
-            const bad = () => { if (settled) return; settled = true; boot(found); };
-            a.addEventListener('loadedmetadata', ok);
-            a.addEventListener('error', bad);
-            setTimeout(bad, 5000);
-            a.src = src;
-          })(1, []);
+
+        if (MUSIC_FILES.length) {
+          boot(MUSIC_FILES.slice());
+        } else {
+          boot(['music/01.mp3', 'music/02.mp3']);
         }
+        window.addEventListener('site-opened', () => {
+          if (audio.paused) unlockAndPlay();
+        });
       });
 
       /* ---------- experience deck ---------- */
