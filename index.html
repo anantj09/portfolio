@@ -4120,7 +4120,7 @@
           tracks.forEach((src, i) => {
             const d = document.createElement('div'); d.className = 'mp-tr' + (i === cur ? ' on' : '');
             d.innerHTML = '<span class="tn">' + String(i + 1).padStart(2, '0') + '</span><span>' + nameOf(src) + '</span>';
-            d.addEventListener('click', () => play(i));
+            d.addEventListener('click', () => play(i, true));
             listEl.appendChild(d);
           });
           countEl.textContent = tracks.length + ' tracks · /' + DIR.replace('/', '');
@@ -4136,17 +4136,21 @@
           if (tracks.length) titleEl.textContent = audio.paused && started ? 'paused' : nameOf(tracks[cur]);
         }
 
-        function play(i) {
+        function play(i, forceRestart = false) {
           if (!tracks.length) return;
-          cur = ((i % tracks.length) + tracks.length) % tracks.length;
-          audio.src = tracks[cur];
+          const target = ((i % tracks.length) + tracks.length) % tracks.length;
+          const isSameTrack = (target === cur) && audio.src && audio.src.includes(tracks[target]);
+          cur = target;
           started = true;
+          if (!isSameTrack || forceRestart) {
+            audio.src = tracks[cur];
+          }
           audio.play().then(setUI).catch(setUI);
           renderList();
         }
 
-        audio.addEventListener('ended', () => play(cur + 1));
-        audio.addEventListener('error', () => { if (started && tracks.length > 1) play(cur + 1); });
+        audio.addEventListener('ended', () => play(cur + 1, true));
+        audio.addEventListener('error', () => { if (started && tracks.length > 1) play(cur + 1, true); });
         audio.addEventListener('timeupdate', () => {
           if (!isFinite(audio.duration)) return;
           seek.value = String((audio.currentTime / audio.duration * 1000) | 0);
@@ -4158,8 +4162,8 @@
           audio.volume = vol.value / 100;
           try { localStorage.setItem('mcv_vol', String(audio.volume)); } catch (e) { }
         });
-        qs('#mpPrev').addEventListener('click', () => play(cur - 1));
-        qs('#mpNext').addEventListener('click', () => play(cur + 1));
+        qs('#mpPrev').addEventListener('click', () => play(cur - 1, true));
+        qs('#mpNext').addEventListener('click', () => play(cur + 1, true));
         qs('#mpPlay').addEventListener('click', () => {
           if (!tracks.length) { toast('no tracks yet'); return; }
           if (!started) { play(0); return; }
@@ -4169,9 +4173,6 @@
 
         btn.addEventListener('click', e => {
           e.stopPropagation();
-          if (audio.paused && tracks.length) {
-            play(cur);
-          }
           panelOpen = !panelOpen; panel.classList.toggle('open', panelOpen);
         });
         qs('#mpClose').addEventListener('click', () => { panelOpen = false; panel.classList.remove('open'); });
